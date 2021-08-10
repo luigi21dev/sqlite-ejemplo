@@ -1,0 +1,42 @@
+CREATE TABLE Clientes(
+	NIF int NOT NULL,
+	Nombre varchar(255) NOT NULL,
+	Direccion varchar(255),
+	Telefono varchar(255),
+	CONSTRAINT PK_Cliente PRIMARY KEY(NIF)
+);
+
+CREATE TABLE ModelosDormitorios(
+	Cod int Not Null,
+	CONSTRAINT PK_Modelo PRIMARY KEY (Cod)
+);
+
+CREATE TABLE Montadores(
+	NIF_M int Not Null,
+	Nombre varchar(255) NOT NULL,
+	Direccion varchar(255),
+	Telefono varchar(255),
+	CONSTRAINT PK_Montador PRIMARY KEY (NIF_M)
+); 
+
+CREATE TABLE Compras(
+	NIF_C int NOT NULL,
+	Modelo int NOT NULL,
+	FechaCompra TEXT,
+	CONSTRAINT PK_Compra PRIMARY KEY (NIF_C,Modelo,FechaCompra),
+	CONSTRAINT FK_Compra1 FOREIGN KEY (NIF_C)
+	REFERENCES Clientes(NIF),
+	CONSTRAINT FK_Compra2 FOREIGN KEY (Modelo) 
+	REFERENCES ModelosDormitorios(Cod
+);
+
+CREATE TABLE Montajes (
+	Modelo int NOT NULL,
+	NIF_M int NOT NULL,
+	FechaMontaje TEXT,
+	CONSTRAINT PK_Montaje PRIMARY KEY(Modelo,NIF_M,FechaMontaje),
+	CONSTRAINT FK_Montaje1 FOREIGN KEY (Modelo)
+	REFERENCES ModelosDormitorios(Cod),
+	CONSTRAINT FK_Montaje2 FOREIGN KEY (NIF_M)
+	REFERENCES Montadores(NIF_M)
+);
